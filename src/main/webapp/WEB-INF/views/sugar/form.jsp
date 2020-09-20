@@ -29,10 +29,10 @@
         </div>
 
         <%--    rozwinięcie by dodać szczegóły pomiaru--%>
-        <div class="form">
+
             <input class="form-check-input" type="checkbox" id="details">
             <label class="form-check-label" for="details">Chcę dodać szczegóły</label>
-        </div>
+
         <%--    to co po rozwinięciu--%>
         <div id="sugarDetails">
             <div class="form">
@@ -56,7 +56,7 @@
         </div>
 
 
-        <button type="submit" onclick="return confirm('Chcesz zapisać zmiany?');">Zapisz</button>
+        <button class="button1" type="submit" onclick="return confirm('Chcesz zapisać zmiany?');">Zapisz</button>
     </form:form>
 </div>
 

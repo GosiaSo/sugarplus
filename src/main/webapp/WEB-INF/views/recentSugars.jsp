@@ -17,14 +17,14 @@
 </div>
 <br>
 
-<div class="panel panel-primary">
+<div>
 
-    <table class="table table-hover">
+    <table>
         <thead>
         <tr>
             <th>#</th>
-            <th>Cukier</th>
             <th>Data</th>
+            <th>Cukier</th>
             <th>Godzina</th>
             <th>Korekta</th>
             <th>WW</th>
@@ -36,15 +36,16 @@
         <c:forEach items="${sugars}" var="sugar">
             <tr>
                 <th>${sugar.id}</th>
-                <td>${sugar.value}</td>
                 <td>${sugar.date}</td>
+                <td>${sugar.value}</td>
                 <td>${sugar.time}</td>
                 <td>${sugar.correctionForHypo}</td>
                 <td>${sugar.carbohydratesInMeal}</td>
+                <td>${sugar.bolusForMeal}</td>
                 <td>${sugar.physicalActivity}</td>
                 <td>
 <%--                    <a href='<c:url value = '/sugarplus/home/delete/${sugar.id}'/>'>usuń</a> --%>
-                    <a href='<c:url value = '/sugarplus/home/update/${sugar.id}'/>'>edytuj</a>
+                    <a href='<c:url value = '/sugarplus/sugars/edit/${sugar.id}'/>'>edytuj</a>
                 </td>
             </tr>
         </c:forEach>

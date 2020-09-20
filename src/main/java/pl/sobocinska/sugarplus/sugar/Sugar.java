@@ -1,11 +1,9 @@
 package pl.sobocinska.sugarplus.sugar;
 
-import org.hibernate.validator.constraints.Length;
 import pl.sobocinska.sugarplus.users.User;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -17,9 +15,10 @@ public class Sugar {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Poziom cukru jest wymagany.")
-    @Length(min = 2, max = 3)
-    private int value;
+    @NotNull(message = "Poziom cukru musi zawierać się w przedziale {min} i {max}.")
+    @Min(20)
+    @Max(700)
+    private Integer value;
 
     private LocalDate date = LocalDate.now();
     private LocalTime time = LocalTime.now();
@@ -44,7 +43,7 @@ public class Sugar {
         this.id = id;
     }
 
-    public int getValue() {
+    public Integer getValue() {
         return value;
     }
 

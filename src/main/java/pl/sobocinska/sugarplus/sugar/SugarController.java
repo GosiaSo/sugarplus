@@ -25,7 +25,7 @@ public class SugarController {
     }
 
     // home page and recent sugars
-    @GetMapping("/home")
+    @GetMapping({"/home", "/"})
     public String showRecentSugars(Model model) {
         model.addAttribute("sugars", jpaSugarService.findSugarsByDate());
         return "recentSugars";
@@ -44,7 +44,7 @@ public class SugarController {
             return "sugar/form";
         }
         jpaSugarService.createSugar(sugar);
-        return "redirect:/recentSugars";
+        return "redirect:/sugarplus/home";
     }
 
     @GetMapping("/sugars/edit/{id}")
@@ -59,7 +59,7 @@ public class SugarController {
             return "sugar/form";
         }
         jpaSugarService.editSugar(sugar);
-        return "redirect:/recentSugars";
+        return "redirect:/sugarplus/home";
     }
 
 }
