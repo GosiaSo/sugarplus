@@ -10,5 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByVisibleTrue();
     User findByUsername(String username);
+    User findUserByUsername(String username);
 
 }

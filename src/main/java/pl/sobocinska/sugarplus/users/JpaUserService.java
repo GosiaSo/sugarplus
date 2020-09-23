@@ -48,4 +48,9 @@ public class JpaUserService implements UserService {
         user.setVisible(false);
         userRepository.save(user);
     }
+
+    @Override
+    public User findUserByUserName(String username) {
+        return userRepository.findByUsername(username);
+    }
 }

@@ -1,6 +1,8 @@
 package pl.sobocinska.sugarplus.sugar;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.sobocinska.sugarplus.users.JpaUserService;
 
 import javax.validation.Valid;
 
@@ -18,10 +21,12 @@ import javax.validation.Valid;
 public class SugarController {
 
     private final JpaSugarService jpaSugarService;
+    private final JpaUserService jpaUserService;
 
     @Autowired
-    public SugarController(JpaSugarService jpaSugarService) {
+    public SugarController(JpaSugarService jpaSugarService, JpaUserService jpaUserService) {
         this.jpaSugarService = jpaSugarService;
+        this.jpaUserService = jpaUserService;
     }
 
     // home page and recent sugars
@@ -43,6 +48,9 @@ public class SugarController {
             model.addAttribute("sugars", jpaSugarService.findSugars());
             return "sugar/form";
         }
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        sugar.setUser(jpaUserService.findUserByUserName(name));
         jpaSugarService.createSugar(sugar);
         return "redirect:/sugarplus/home";
     }
