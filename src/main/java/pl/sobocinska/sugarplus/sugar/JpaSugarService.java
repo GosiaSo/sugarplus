@@ -27,6 +27,7 @@ public class JpaSugarService implements SugarService {
     }
 
     public List<Sugar> findSugarsByDate() {
+
         return sugarRepository.findRecentSugars();
     }
 

@@ -13,7 +13,6 @@ public interface SugarRepository extends JpaRepository<Sugar, Long> {
     //TO DO: funkcja do znajdywania dużych i małych cukrów
 
 
-
     @Query(value = "select * from sugars order by date asc limit 20", nativeQuery = true)
     List <Sugar> findRecentSugars();
 }

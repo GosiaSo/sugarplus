@@ -30,6 +30,8 @@ public class User {
     @NotBlank(message = "Pole nie może być puste.")
     private String password;
 
+    private String passwordTest;
+
     @Email(message = "Podano nieprawidłowy e-mail.")
     @NotBlank(message = "Te pole jest wymagane.")
     private String email;
@@ -79,6 +81,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getPasswordTest() {
+        return passwordTest;
+    }
+
+    public void setPasswordTest(String passwordTest) {
+        this.passwordTest = passwordTest;
     }
 
     public String getEmail() {

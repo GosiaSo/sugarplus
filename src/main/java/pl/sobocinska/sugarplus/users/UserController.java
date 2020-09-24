@@ -23,17 +23,21 @@ public class UserController {
         this.jpaUserService = jpaUserService;
     }
 
-    @GetMapping("/add")
+    @GetMapping("/register")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
-        return "user/form";
+        return "user/registration";
     }
 
-    @PostMapping("/add")
+    @PostMapping("/register")
     public String addUser(@Valid User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("users", jpaUserService.findAllByVisibleTrue());
-            return "user/form";
+            return "user/registration";
+        }
+        if(!user.getPassword().equals(user.getPasswordTest())){
+            model.addAttribute("users", jpaUserService.findAllByVisibleTrue());
+            return "user/registration";
         }
         jpaUserService.createUser(user);
         return "redirect:/sugarplus/home";

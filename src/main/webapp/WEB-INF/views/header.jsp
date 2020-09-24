@@ -8,7 +8,7 @@
         <li>
             <a href="<c:url value="/sugarplus/home"/>"><img src="<c:url value="/img/glukometr.png"/>" alt="glukometr"/></a>
         </li>
-        <li>Sugar Plus</li>
+        <li id="title">Sugar Plus</li>
 
         <%--security and user profile--%>
         <sec:authorize access="isAuthenticated()">
@@ -34,8 +34,16 @@
                 </a>
             </li>
         </sec:authorize>
-    </ul>
 
+        <ul class="header2">
+            <li>
+                <a href="<c:url value="/sugarplus/users/register"/>">
+                    <button class="button2">Zarejestruj się</button>
+                </a>
+            </li>
+        </ul>
+
+    </ul>
 
 </header>
 </html>
