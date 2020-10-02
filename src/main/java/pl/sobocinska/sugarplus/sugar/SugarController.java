@@ -7,10 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.sobocinska.sugarplus.users.JpaUserService;
 
 import javax.validation.Valid;
@@ -32,6 +29,7 @@ public class SugarController {
     // home page and recent sugars
     @GetMapping({"/home", "/"})
     public String showRecentSugars(Model model) {
+
         model.addAttribute("sugars", jpaSugarService.findSugarsByDate());
         return "recentSugars";
     }
@@ -68,6 +66,16 @@ public class SugarController {
         }
         jpaSugarService.editSugar(sugar);
         return "redirect:/sugarplus/home";
+    }
+
+
+    // próbuję przekazać do jsp dane do średnich....
+    @GetMapping({"/getAverageSugars"})
+    @ResponseBody
+    public String getAverageSugars(Model model) {
+
+        model.addAttribute("averageSugars", jpaSugarService.findSugarsByDate());
+        return "";
     }
 
 }

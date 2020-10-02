@@ -5,6 +5,7 @@ import pl.sobocinska.sugarplus.users.User;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -22,6 +23,7 @@ public class Sugar {
 
     private LocalDate date = LocalDate.now();
     private LocalTime time = LocalTime.now();
+    private LocalDateTime localDateTime = LocalDateTime.now();
 
     @ManyToOne
     private User user;
@@ -47,7 +49,7 @@ public class Sugar {
         return value;
     }
 
-    public void setValue(int value) {
+    public void setValue(Integer value) {
         this.value = value;
     }
 
@@ -65,6 +67,14 @@ public class Sugar {
 
     public void setTime(LocalTime time) {
         this.time = time;
+    }
+
+    public LocalDateTime getLocalDateTime() {
+        return localDateTime;
+    }
+
+    public void setLocalDateTime(LocalDateTime localDateTime) {
+        this.localDateTime = localDateTime;
     }
 
     public User getUser() {
