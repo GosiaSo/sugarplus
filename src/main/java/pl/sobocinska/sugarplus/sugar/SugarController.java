@@ -6,15 +6,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import pl.sobocinska.sugarplus.users.JpaUserService;
 
 import javax.validation.Valid;
+import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @Controller
 @Transactional
 @RequestMapping("/sugarplus")
@@ -30,44 +28,22 @@ public class SugarController {
     }
 
     // home page and recent sugars
-    @GetMapping({"/home", "/"})
-    public String showRecentSugars(Model model) {
-        model.addAttribute("sugars", jpaSugarService.findSugarsByDate());
-        return "recentSugars";
+    @GetMapping({"/home", "/", "/sugars"})
+    public List<Sugar> showRecentSugars() {
+        return jpaSugarService.findSugarsByDate();
     }
 
-    @GetMapping("/sugars/add")
-    public String addSugarForm(Model model) {
-        model.addAttribute("sugar", new Sugar());
-        return "sugar/form";
-    }
-
-    @PostMapping("/sugars/add")
-    public String addSugar(@Valid Sugar sugar, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("sugars", jpaSugarService.findSugars());
-            return "sugar/form";
-        }
+    @PostMapping("/sugars")
+    public Sugar addSugar(@Valid @RequestBody Sugar sugar) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         sugar.setUser(jpaUserService.findUserByUserName(name));
-        jpaSugarService.createSugar(sugar);
-        return "redirect:/sugarplus/home";
+        return jpaSugarService.createSugar(sugar);
     }
 
-    @GetMapping("/sugars/edit/{id}")
-    public String editSugar(@PathVariable Long id, Model model) {
-        model.addAttribute("sugar", jpaSugarService.findSugarById(id));
-        return "sugar/form";
-    }
-
-    @PostMapping("/sugars/edit/{id}")
-    public String editSugar(@Valid Sugar sugar, BindingResult result) {
-        if (result.hasErrors()) {
-            return "sugar/form";
-        }
-        jpaSugarService.editSugar(sugar);
-        return "redirect:/sugarplus/home";
+    @PutMapping("/sugars/{id}")
+    public Sugar editSugar(@PathVariable Long id, @Valid @RequestBody Sugar sugar) {
+        return jpaSugarService.findSugarById(id);
     }
 
 }

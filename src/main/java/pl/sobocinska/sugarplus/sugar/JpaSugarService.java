@@ -32,13 +32,13 @@ public class JpaSugarService implements SugarService {
     }
 
     @Override
-    public void createSugar(Sugar sugar) {
-        sugarRepository.save(sugar);
+    public Sugar createSugar(Sugar sugar) {
+        return sugarRepository.save(sugar);
     }
 
     @Override
-    public void editSugar(Sugar sugar) {
-        sugarRepository.save(sugar);
+    public Sugar editSugar(Sugar sugar) {
+        return sugarRepository.save(sugar);
     }
 
     @Override
